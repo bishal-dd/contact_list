@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from "react-router-dom";
 
 const Navbar = () => {
   return (
@@ -7,15 +8,15 @@ const Navbar = () => {
         <div className="flex justify-between items-center">
           <div className="text-white font-bold text-2xl">Your Logo</div>
           <div className="space-x-4">
-            <a href="#" className="text-white">
+            <Link to="/" className="text-white">
               Home
-            </a>
-            <a href="#" className="text-white">
+            </Link>
+            <Link to="/sign_in" className="text-white">
               Sign in
-            </a>
-            <a href="#" className="text-white">
+            </Link>
+            <Link to="/sign_up" className="text-white">
               Sign up
-            </a>
+            </Link>
           </div>
         </div>
       </div>
