@@ -45,7 +45,6 @@ export default function SignUp() {
 
   const handleInputChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
-    console.log(formData);
   };
 
   return (
