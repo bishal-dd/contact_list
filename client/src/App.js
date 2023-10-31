@@ -6,6 +6,7 @@ import SignUp from "./components/SignUp";
 import SignIn from "./components/SignIn";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import ProtectedRoute from "./routes/ProtectedRoute";
 
 function App() {
   return (
@@ -14,9 +15,12 @@ function App() {
         <Navbar />
         <ToastContainer position="top-center" />
         <Routes>
-          <Route path="/" element={<Home />} />
+          <Route element={<ProtectedRoute />}>
+            <Route path="/contact" element={<Home />} />{" "}
+          </Route>
+
           <Route path="/sign_up" element={<SignUp />} />
-          <Route path="/sign_in" element={<SignIn />} />
+          <Route path="/" element={<SignIn />} />
         </Routes>
       </BrowserRouter>
     </>

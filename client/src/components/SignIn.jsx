@@ -2,8 +2,12 @@ import React, { useState } from "react";
 import axios from "axios";
 import { toast } from "react-toastify"; // For displaying toasts
 import { useNavigate } from "react-router-dom";
+import { useRecoilState } from "recoil";
+import { userState } from "../state/atoms/userState";
+import { decodeToken } from "react-jwt";
 
 export default function SignIn() {
+  const [user, setUser] = useRecoilState(userState);
   const [formData, setFormData] = useState({
     email: "",
     password: "",
@@ -37,13 +41,13 @@ export default function SignIn() {
 
       const { data } = response.data;
       const { signInUser } = data;
-
       if (signInUser) {
         // Set the JWT token in local storage
         localStorage.setItem("token", signInUser);
+        setUser(decodeToken(signInUser));
 
+        navigate("/contact");
         toast.success("Sign in successful!");
-        navigate("/");
       } else {
         toast.error("Sign in failed. Please check your credentials.");
       }

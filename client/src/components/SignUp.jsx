@@ -36,7 +36,7 @@ export default function SignUp() {
 
       //
       toast.success("Sign up successful!");
-      navigate("/sign_in");
+      navigate("/");
     } catch (error) {
       // Handle the error here
       console.error("Sign up error:", error);
