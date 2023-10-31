@@ -98,7 +98,7 @@ export default function SignIn() {
             type="submit"
             className="w-full bg-blue-500 text-white font-semibold p-2 rounded hover:bg-blue-600"
           >
-            Sign Up
+            Sign In
           </button>
         </form>
       </div>
