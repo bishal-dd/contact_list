@@ -1,11 +1,66 @@
-import React from "react";
+import React, { useState } from "react";
+import axios from "axios";
+import { toast } from "react-toastify"; // For displaying toasts
+import { useNavigate } from "react-router-dom";
 
 export default function SignIn() {
+  const [formData, setFormData] = useState({
+    email: "",
+    password: "",
+  });
+
+  const navigate = useNavigate();
+
+  const handleFormSubmit = async (e) => {
+    e.preventDefault();
+
+    // Construct your GraphQL query
+    const query = `
+  query SignInUser($email: String, $password: String) {
+    signInUser(email: $email, password: $password)
+  }
+`;
+
+    const variables = {
+      email: formData.email,
+      password: formData.password,
+    };
+
+    try {
+      const response = await axios.post(
+        `${process.env.REACT_APP_GRAPHQL_URL}`,
+        {
+          query,
+          variables,
+        }
+      );
+
+      const { data } = response.data;
+      const { signInUser } = data;
+
+      if (signInUser) {
+        // Set the JWT token in local storage
+        localStorage.setItem("token", signInUser);
+
+        toast.success("Sign in successful!");
+        navigate("/");
+      } else {
+        toast.error("Sign in failed. Please check your credentials.");
+      }
+    } catch (error) {
+      // Handle the error here
+      console.error("Sign in error:", error);
+    }
+  };
+
+  const handleInputChange = (e) => {
+    setFormData({ ...formData, [e.target.name]: e.target.value });
+  };
   return (
     <div className="min-h-screen flex items-center justify-center">
       <div className="bg-white w-96 p-6 rounded-lg shadow-lg border  border-gray-300">
         <h2 className="text-2xl font-bold mb-4">Sign In</h2>
-        <form>
+        <form onSubmit={handleFormSubmit}>
           <div className="mb-4">
             <label htmlFor="email" className="block text-gray-600 font-medium">
               Email
@@ -16,6 +71,7 @@ export default function SignIn() {
               name="email"
               className="w-full border border-gray-300 rounded p-2"
               placeholder="Your Email"
+              onChange={handleInputChange}
             />
           </div>
           <div className="mb-4">
@@ -31,6 +87,7 @@ export default function SignIn() {
               name="password"
               className="w-full border border-gray-300 rounded p-2"
               placeholder="Password"
+              onChange={handleInputChange}
             />
           </div>
           <button
