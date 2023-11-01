@@ -7,6 +7,7 @@ import { userState } from "../state/atoms/userState";
 import { decodeToken } from "react-jwt";
 
 export default function SignIn() {
+  // eslint-disable-next-line no-unused-vars
   const [user, setUser] = useRecoilState(userState);
   const [formData, setFormData] = useState({
     email: "",
