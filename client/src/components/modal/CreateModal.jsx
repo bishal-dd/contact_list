@@ -1,14 +1,13 @@
 import React, { useState } from "react";
-import { useRecoilState } from "recoil";
-import { contactState } from "../../state/atoms/contactState";
-import { useRecoilValue } from "recoil";
-import { userState } from "../../state/atoms/userState";
 import axios from "axios";
 import { toast } from "react-toastify";
+import { useRecoilValue } from "recoil";
+import { userState } from "../../state/atoms/userState";
+import { useRecoilState } from "recoil";
+import { contactState } from "../../state/atoms/contactState";
 
-export default function CreateModal() {
+const CreateModal = ({ isOpen, closeModal }) => {
   const user = useRecoilValue(userState);
-  const [isModalOpen, setIsModalOpen] = useState(false);
   const [newContact, setNewContact] = useState({
     contact_name: "",
     contact_email: "",
@@ -16,15 +15,12 @@ export default function CreateModal() {
   });
   const [contacts, setContacts] = useRecoilState(contactState);
 
-  const closeModal = () => {
-    setIsModalOpen(false);
-  };
-
   // Function to handle form input changes
   const handleInputChange = (e) => {
     setNewContact({ ...newContact, [e.target.name]: e.target.value });
   };
 
+  // Function to save the new contact
   const handleSaveContact = async (e) => {
     e.preventDefault();
 
@@ -38,7 +34,7 @@ export default function CreateModal() {
           userId
         }
       }
-  `;
+    `;
     const variables = {
       contact_name: newContact.contact_name,
       contact_email: newContact.contact_email,
@@ -56,10 +52,9 @@ export default function CreateModal() {
       );
       const { data } = response.data;
       const { createContact } = data;
+      closeModal(); // Close the modal
       setContacts([...contacts, createContact]);
-      closeModal();
-      //
-      toast.success("Contact added successful!");
+      toast.success("Contact added successfully!");
     } catch (error) {
       // Handle the error here
       console.error("error:", error);
@@ -68,7 +63,7 @@ export default function CreateModal() {
 
   return (
     <div>
-      {isModalOpen && (
+      {isOpen && (
         <div className="fixed inset-0 flex items-center justify-center z-10">
           <div className="absolute inset-0 bg-gray-900 opacity-50"></div>
           <div className="relative bg-white w-1/3 p-4 rounded-md shadow-lg">
@@ -82,6 +77,7 @@ export default function CreateModal() {
             </div>
             <h2 className="text-xl font-bold mb-4">Create Contact</h2>
             <form onSubmit={handleSaveContact}>
+              {/* Input fields for creating a new contact */}
               <div className="mb-4">
                 <label
                   htmlFor="contact_name"
@@ -139,4 +135,6 @@ export default function CreateModal() {
       )}
     </div>
   );
-}
+};
+
+export default CreateModal;

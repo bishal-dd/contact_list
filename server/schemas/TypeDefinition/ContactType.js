@@ -1,9 +1,10 @@
 const graphql = require("graphql");
-const { GraphQLObjectType, GraphQLString, GraphQLInt } = graphql;
+const { GraphQLObjectType, GraphQLString, GraphQLInt, GraphQLID } = graphql;
 
 const ContactType = new GraphQLObjectType({
   name: "Contact",
   fields: () => ({
+    id: { type: GraphQLID },
     contact_name: { type: GraphQLString },
     contact_number: { type: GraphQLInt },
     contact_email: { type: GraphQLString },
