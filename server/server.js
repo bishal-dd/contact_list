@@ -19,7 +19,7 @@ app.use(
     secret: process.env.JWT_SECRET,
     algorithms: ["HS256"], // Algorithm used to sign the token
   }).unless({
-    path: ["/graphql", "/sign_in", "/sign_up"], // Add routes that don't require authentication
+    path: ["/graphql", "/contact", "/sign_up"], // Add routes that don't require authentication
   })
 );
 

@@ -21,7 +21,10 @@ const signInUser = {
 
       if (isPasswordValid) {
         // Generate a JWT token
-        const token = jwt.sign({ email: args.email }, process.env.JWT_SECRET);
+        const token = jwt.sign(
+          { userId: user.id, email: args.email },
+          process.env.JWT_SECRET
+        );
         return token;
       } else {
         throw new Error("Invalid credentials");
