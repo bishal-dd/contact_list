@@ -88,6 +88,7 @@ export default function EditContact() {
                 value={editedContact.contact_name}
                 onChange={handleInputChange}
                 className="w-full p-2 border border-gray-300 rounded-md"
+                required
               />
             </div>
             <div className="mb-4">
@@ -104,6 +105,7 @@ export default function EditContact() {
                 value={editedContact.contact_email}
                 onChange={handleInputChange}
                 className="w-full p-2 border border-gray-300 rounded-md"
+                required
               />
             </div>
             <div className="mb-4">
@@ -120,6 +122,7 @@ export default function EditContact() {
                 value={editedContact.contact_number}
                 onChange={handleInputChange}
                 className="w-full p-2 border border-gray-300 rounded-md"
+                required
               />
             </div>
             <button

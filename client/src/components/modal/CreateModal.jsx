@@ -90,6 +90,7 @@ const CreateModal = ({ isOpen, closeModal }) => {
                   id="contact_name"
                   name="contact_name"
                   onChange={handleInputChange}
+                  required
                   className="w-full p-2 border border-gray-300 rounded-md"
                 />
               </div>
@@ -101,11 +102,12 @@ const CreateModal = ({ isOpen, closeModal }) => {
                   Email:
                 </label>
                 <input
-                  type="text"
+                  type="email"
                   id="contact_email"
                   name="contact_email"
                   onChange={handleInputChange}
                   className="w-full p-2 border border-gray-300 rounded-md"
+                  required
                 />
               </div>
               <div className="mb-4">
@@ -121,6 +123,7 @@ const CreateModal = ({ isOpen, closeModal }) => {
                   name="contact_number"
                   onChange={handleInputChange}
                   className="w-full p-2 border border-gray-300 rounded-md"
+                  required
                 />
               </div>
               <button

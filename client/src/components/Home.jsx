@@ -14,6 +14,9 @@ const Home = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [contacts, setContacts] = useRecoilState(contactState);
 
+  const [currentPage, setCurrentPage] = useState(1);
+  const [contactsPerPage] = useState(5); // Set the number of contacts per page
+
   // Function to open the modal
   const openModal = () => {
     setIsModalOpen(true);
@@ -53,7 +56,6 @@ const Home = () => {
         const { data } = response.data;
         const { getAllContact } = data;
         setContacts(getAllContact);
-        //
       } catch (error) {
         // Handle the error here
         console.error("error:", error);
@@ -61,6 +63,13 @@ const Home = () => {
     };
     fetchData();
   }, [setContacts, user.userId]);
+
+  const indexOfLastContact = currentPage * contactsPerPage;
+  const indexOfFirstContact = indexOfLastContact - contactsPerPage;
+  const currentContacts = contacts.slice(
+    indexOfFirstContact,
+    indexOfLastContact
+  );
 
   const handleDeleteContact = async (contactId) => {
     try {
@@ -111,7 +120,6 @@ const Home = () => {
 
         {/* Use the CreateContactModal component here */}
         <CreateModal isOpen={isModalOpen} closeModal={closeModal} />
-        {/* ... */}
       </div>
 
       <div className="overflow-x-auto shadow-lg">
@@ -136,53 +144,70 @@ const Home = () => {
             </tr>
           </thead>
           <tbody>
-            {contacts && contacts.length > 0 ? (
-              contacts
-                .slice() // Create a copy of the contacts array to avoid mutating the original array
-                .sort((a, b) => a.id - b.id) // Sort the contacts by id
-                .map((contact, index) => (
-                  <tr
-                    key={contact.id}
-                    className={index % 2 === 0 ? "bg-gray-100" : "bg-white"}
-                  >
-                    <td className="border-r border-b border-gray-300 py-2 p-3">
-                      {index + 1}
-                    </td>
-                    <td className="border-r border-b border-gray-300 py-2 p-3">
-                      {contact.contact_name}
-                    </td>
-                    <td className="border-r border-b border-gray-300 py-2 p-3">
-                      {contact.contact_email}
-                    </td>
-                    <td className="border-r border-b border-gray-300 py-2 p-3">
-                      {contact.contact_number}
-                    </td>
-                    <td className="border-r border-b border-gray-300 py-2 p-3">
-                      <div className="flex">
-                        <Link
-                          className="mr-2 text-blue-500 p-2 hover-bg-blue-100"
-                          to={`edit/${contact.id}`}
-                          state={contact}
-                        >
-                          <FaEdit /> {/* Edit icon */}
-                        </Link>
-                        <button
-                          className="text-red-500 p-2 hover-bg-red-100"
-                          onClick={() => handleDeleteContact(contact.id)}
-                        >
-                          <FaTrash /> {/* Trash icon */}
-                        </button>
-                      </div>
-                    </td>
-                  </tr>
-                ))
-            ) : (
-              <tr>
-                <th colSpan={4}>No contacts available</th>
+            {currentContacts.map((contact, index) => (
+              <tr
+                key={contact.id}
+                className={index % 2 === 0 ? "bg-gray-100" : "bg-white"}
+              >
+                <td className="border-r border-b border-gray-300 py-2 p-3">
+                  {index + 1}
+                </td>
+                <td className="border-r border-b border-gray-300 py-2 p-3">
+                  {contact.contact_name}
+                </td>
+                <td className="border-r border-b border-gray-300 py-2 p-3">
+                  {contact.contact_email}
+                </td>
+                <td className="border-r border-b border-gray-300 py-2 p-3">
+                  {contact.contact_number}
+                </td>
+                <td className="border-r border-b border-gray-300 py-2 p-3">
+                  <div className="flex">
+                    <Link
+                      className="mr-2 text-blue-500 p-2 hover-bg-blue-100"
+                      to={`edit/${contact.id}`}
+                      state={contact}
+                    >
+                      <FaEdit />
+                    </Link>
+                    <button
+                      className="text-red-500 p-2 hover-bg-red-100"
+                      onClick={() => handleDeleteContact(contact.id)}
+                    >
+                      <FaTrash />
+                    </button>
+                  </div>
+                </td>
               </tr>
-            )}
+            ))}
           </tbody>
         </table>
+      </div>
+
+      {/* Pagination Controls */}
+      <div className="flex justify-center my-4">
+        <button
+          className={`${
+            currentPage === 1
+              ? "bg-gray-300 text-gray-600"
+              : "bg-blue-500 text-white hover:bg-blue-600"
+          } py-2 px-4 rounded-md mx-2 transition duration-300`}
+          onClick={() => setCurrentPage(currentPage - 1)}
+          disabled={currentPage === 1}
+        >
+          Previous
+        </button>
+        <button
+          className={`${
+            indexOfLastContact >= contacts.length
+              ? "bg-gray-300 text-gray-600"
+              : "bg-blue-500 text-white hover:bg-blue-600"
+          } py-2 px-4 rounded-md mx-2 transition duration-300`}
+          onClick={() => setCurrentPage(currentPage + 1)}
+          disabled={indexOfLastContact >= contacts.length}
+        >
+          Next
+        </button>
       </div>
     </div>
   );
