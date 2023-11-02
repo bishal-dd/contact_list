@@ -9,7 +9,10 @@ const getAllContact = {
     userId: { type: graphql.GraphQLInt },
   },
   resolve(parent, args) {
-    return Contact.findAll({ where: { userId: args.userId } })
+    return Contact.findAll(
+      { where: { userId: args.userId } },
+      { order: [["createdAt", "ASC"]] }
+    )
       .then((contacts) => {
         return contacts;
       })

@@ -10,9 +10,9 @@ const updateContact = {
     contact_name: { type: GraphQLString },
     contact_email: { type: GraphQLString },
     contact_number: { type: GraphQLInt },
-    userId: { type: GraphQLInt },
   },
   async resolve(parent, args) {
+    console.log(args.id);
     try {
       // First, find the contact you want to update by its ID
       const contact = await Contact.findByPk(args.id);

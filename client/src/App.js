@@ -7,6 +7,7 @@ import SignIn from "./components/SignIn";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import ProtectedRoute from "./routes/ProtectedRoute";
+import EditContact from "./components/EditContact";
 
 function App() {
   return (
@@ -17,6 +18,7 @@ function App() {
         <Routes>
           <Route element={<ProtectedRoute />}>
             <Route path="/contact" element={<Home />} />{" "}
+            <Route path="/contact/edit/:id" element={<EditContact />} />
           </Route>
 
           <Route path="/sign_up" element={<SignUp />} />

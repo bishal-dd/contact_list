@@ -21,6 +21,12 @@ module.exports = (sequelize, DataTypes) => {
       allowNull: false,
       validate: validation,
     },
+
+    isActive: {
+      type: DataTypes.BOOLEAN, // Assuming isActive is a boolean field
+      allowNull: false,
+      defaultValue: true, // You can set a default value as needed
+    },
   });
 
   Contact.associate = (models) => {

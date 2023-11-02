@@ -55,6 +55,7 @@ const EditModal = ({ isOpen, closeModal, contact, contact_id }) => {
     }
   };
 
+  // Check if the contact is defined before rendering
   return (
     <div>
       {isOpen && contact && (
