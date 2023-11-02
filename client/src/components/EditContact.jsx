@@ -1,8 +1,6 @@
 import React, { useState } from "react";
 import axios from "axios";
 import { toast } from "react-toastify";
-import { useRecoilValue } from "recoil";
-import { userState } from "../state/atoms/userState";
 import { useLocation, useNavigate } from "react-router-dom";
 import { useRecoilState } from "recoil";
 import { contactState } from "../state/atoms/contactState";

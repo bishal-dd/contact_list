@@ -3,13 +3,10 @@ const { GraphQLString, GraphQLInt, GraphQLID } = graphql;
 const ContactType = require("../TypeDefinition/ContactType");
 const { Contact } = require("../../models");
 
-const updateContact = {
+const deleteContact = {
   type: ContactType,
   args: {
     id: { type: GraphQLID }, // Assuming you have an ID field for each contact
-    contact_name: { type: GraphQLString },
-    contact_email: { type: GraphQLString },
-    contact_number: { type: GraphQLInt },
   },
   async resolve(parent, args) {
     try {
@@ -21,17 +18,7 @@ const updateContact = {
       }
 
       // Update the contact's fields if they are provided in the args
-      if (args.contact_name) {
-        contact.contact_name = args.contact_name;
-      }
-
-      if (args.contact_email) {
-        contact.contact_email = args.contact_email;
-      }
-
-      if (args.contact_number) {
-        contact.contact_number = args.contact_number;
-      }
+      contact.isActive = false;
 
       // Save the updated contact
       await contact.save();
@@ -43,4 +30,4 @@ const updateContact = {
   },
 };
 
-module.exports = updateContact;
+module.exports = deleteContact;

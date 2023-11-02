@@ -3,6 +3,7 @@ const { GraphQLObjectType } = graphql;
 const createUser = require("./createUser");
 const createContact = require("./createContact");
 const updateContact = require("./updateContact");
+const deleteContact = require("./deleteContact");
 
 const Mutation = new GraphQLObjectType({
   name: "Mutation",
@@ -10,6 +11,7 @@ const Mutation = new GraphQLObjectType({
     createUser: createUser,
     createContact: createContact,
     updateContact: updateContact,
+    deleteContact: deleteContact,
   },
 });
 

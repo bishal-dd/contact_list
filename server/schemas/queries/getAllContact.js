@@ -10,7 +10,7 @@ const getAllContact = {
   },
   resolve(parent, args) {
     return Contact.findAll(
-      { where: { userId: args.userId } },
+      { where: { userId: args.userId, isActive: true } },
       { order: [["createdAt", "ASC"]] }
     )
       .then((contacts) => {

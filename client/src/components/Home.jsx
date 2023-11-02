@@ -7,6 +7,7 @@ import { useRecoilState } from "recoil";
 import { contactState } from "../state/atoms/contactState";
 import CreateModal from "./modal/CreateModal";
 import { Link } from "react-router-dom";
+import { toast } from "react-toastify";
 
 const Home = () => {
   const user = useRecoilValue(userState);
@@ -60,6 +61,39 @@ const Home = () => {
     };
     fetchData();
   }, [setContacts, user.userId]);
+
+  const handleDeleteContact = async (contactId) => {
+    try {
+      const response = await axios.post(
+        `${process.env.REACT_APP_GRAPHQL_URL}`,
+        {
+          query: `
+            mutation DeleteContact($id: ID!) {
+              deleteContact(id: $id){
+                id
+              }
+            }
+          `,
+          variables: { id: contactId },
+        }
+      );
+
+      // Check the response and handle the success or error
+      if (response.data.data && response.data.data.deleteContact) {
+        // Contact deleted successfully, update the contact list
+        setContacts((prevContacts) =>
+          prevContacts.filter((contact) => contact.id !== contactId)
+        );
+        toast.success("Contact Deleted");
+      } else {
+        // Handle the error, show a message, or take appropriate action
+        console.error("Error deleting contact.");
+      }
+    } catch (error) {
+      // Handle network or other errors
+      console.error("Error deleting contact:", error);
+    }
+  };
 
   return (
     <div className="container mx-auto py-20">
@@ -132,7 +166,10 @@ const Home = () => {
                         >
                           <FaEdit /> {/* Edit icon */}
                         </Link>
-                        <button className="text-red-500 p-2 hover-bg-red-100">
+                        <button
+                          className="text-red-500 p-2 hover-bg-red-100"
+                          onClick={() => handleDeleteContact(contact.id)}
+                        >
                           <FaTrash /> {/* Trash icon */}
                         </button>
                       </div>
