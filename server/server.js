@@ -9,7 +9,12 @@ const { expressjwt: jwt } = require("express-jwt");
 const db = require("./models");
 const schema = require("./api/graphql");
 const port = 8080;
-app.use(cors());
+
+app.use(
+  cors({
+    origin: "https://contact-list-6.vercel.app",
+  })
+);
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 require("dotenv").config();
