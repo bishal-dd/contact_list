@@ -18,6 +18,7 @@ const server = new ApolloServer({
   context: ({ req }) => {
     // You can add context data here if needed
   },
+  cache: "bounded",
 });
 
 async function startServer() {
