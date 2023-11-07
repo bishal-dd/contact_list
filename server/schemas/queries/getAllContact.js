@@ -11,7 +11,7 @@ const getAllContact = {
   resolve(parent, args) {
     return Contact.findAll(
       { where: { userId: args.userId, isActive: true } },
-      { order: [["createdAt", "ASC"]] }
+      { order: [["id", "ASC"]] }
     )
       .then((contacts) => {
         return contacts;

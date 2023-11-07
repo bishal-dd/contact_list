@@ -17,7 +17,7 @@ function App() {
         <ToastContainer position="top-center" />
         <Routes>
           <Route element={<ProtectedRoute />}>
-            <Route path="/contact" element={<Home />} />{" "}
+            <Route path="/contact" element={<Home />} />
             <Route path="/contact/edit/:id" element={<EditContact />} />
           </Route>
 

@@ -55,6 +55,7 @@ const Home = () => {
         );
         const { data } = response.data;
         const { getAllContact } = data;
+
         setContacts(getAllContact);
       } catch (error) {
         // Handle the error here
@@ -144,42 +145,42 @@ const Home = () => {
             </tr>
           </thead>
           <tbody>
-            {currentContacts.map((contact, index) => (
-              <tr
-                key={contact.id}
-                className={index % 2 === 0 ? "bg-gray-100" : "bg-white"}
-              >
-                <td className="border-r border-b border-gray-300 py-2 p-3">
-                  {index + 1}
-                </td>
-                <td className="border-r border-b border-gray-300 py-2 p-3">
-                  {contact.contact_name}
-                </td>
-                <td className="border-r border-b border-gray-300 py-2 p-3">
-                  {contact.contact_email}
-                </td>
-                <td className="border-r border-b border-gray-300 py-2 p-3">
-                  {contact.contact_number}
-                </td>
-                <td className="border-r border-b border-gray-300 py-2 p-3">
-                  <div className="flex">
-                    <Link
-                      className="mr-2 text-blue-500 p-2 hover-bg-blue-100"
-                      to={`edit/${contact.id}`}
-                      state={contact}
-                    >
-                      <FaEdit />
-                    </Link>
-                    <button
-                      className="text-red-500 p-2 hover-bg-red-100"
-                      onClick={() => handleDeleteContact(contact.id)}
-                    >
-                      <FaTrash />
-                    </button>
-                  </div>
-                </td>
-              </tr>
-            ))}
+            {currentContacts
+              .slice()
+              .sort((a, b) => a.id - b.id)
+              .map((contact, index) => (
+                <tr
+                  key={contact.id}
+                  className={index % 2 === 0 ? "bg-gray-100" : "bg-white"}
+                >
+                  <td className="border-r border-b border-gray-300 py-2 p-3">
+                    {index + 1}
+                  </td>
+                  <td className="border-r border-b border-gray-300 py-2 p-3">
+                    {contact.contact_name}
+                  </td>
+                  <td className="border-r border-b border-gray-300 py-2 p-3">
+                    {contact.contact_email}
+                  </td>
+                  <td className="border-r border-b border-gray-300 py-2 p-3">
+                    {contact.contact_number}
+                  </td>
+                  <td className="border-r border-b border-gray-300 py-2 p-3">
+                    <div className="flex">
+                      <Link
+                        className="mr-2 text-blue-500 p-2 hover-bg-blue-100"
+                        to={`edit/${contact.id}`}
+                        state={contact}
+                      >
+                        <FaEdit /> {/* Edit icon */}
+                      </Link>
+                      <button className="text-red-500 p-2 hover-bg-red-100">
+                        <FaTrash /> {/* Trash icon */}
+                      </button>
+                    </div>
+                  </td>
+                </tr>
+              ))}
           </tbody>
         </table>
       </div>
