@@ -1,4 +1,3 @@
-require("dotenv").config();
 const bodyParser = require("body-parser");
 const express = require("express");
 const app = express();
@@ -12,6 +11,7 @@ const port = 8080;
 app.use(cors());
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
+require("dotenv").config();
 
 app.use(
   "/graphql",
