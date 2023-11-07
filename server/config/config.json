@@ -21,6 +21,6 @@
     "dialect": "postgres"
   },
   "production": {
-    "use_env_variable": "postgres://default:jNOd47YtcRVf@ep-muddy-sky-73080100-pooler.ap-southeast-1.postgres.vercel-storage.com:5432/verceldb"
+    "url": "postgres://default:jNOd47YtcRVf@ep-muddy-sky-73080100-pooler.ap-southeast-1.postgres.vercel-storage.com:5432/verceldb"
   }
 }
