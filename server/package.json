@@ -6,7 +6,8 @@
   "scripts": {
     "test": "jest",
     "start": "node server",
-    "dev": "nodemon server"
+    "dev": "nodemon server",
+    "build": "npm install"
   },
   "author": "",
   "license": "ISC",
