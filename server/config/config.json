@@ -1,10 +1,18 @@
 {
   "development": {
-    "username": "bishal",
-    "password": "bishal",
-    "database": "ContactList",
-    "host": "127.0.0.1",
-    "dialect": "postgres"
+    "url": "postgres://default:jNOd47YtcRVf@ep-muddy-sky-73080100-pooler.ap-southeast-1.postgres.vercel-storage.com:5432/verceldb",
+    "dialect": "postgres",
+    "host": "ep-muddy-sky-73080100-pooler.ap-southeast-1.postgres.vercel-storage.com",
+    "port": 5432,
+    "username": "default",
+    "password": "jNOd47YtcRVf",
+    "database": "verceldb",
+    "dialectOptions": {
+      "ssl": {
+        "require": true,
+        "rejectUnauthorized": false
+      }
+    }
   },
   "test": {
     "username": "root",
