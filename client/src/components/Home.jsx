@@ -174,7 +174,10 @@ const Home = () => {
                       >
                         <FaEdit /> {/* Edit icon */}
                       </Link>
-                      <button className="text-red-500 p-2 hover-bg-red-100">
+                      <button
+                        className="text-red-500 p-2 hover-bg-red-100"
+                        onClick={() => handleDeleteContact(contact.id)}
+                      >
                         <FaTrash /> {/* Trash icon */}
                       </button>
                     </div>
