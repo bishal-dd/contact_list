@@ -7,8 +7,8 @@ var { graphqlHTTP } = require("express-graphql");
 var { buildSchema, GraphQLSchema } = require("graphql");
 const { expressjwt: jwt } = require("express-jwt");
 const db = require("./models");
-const schema = require("./api/graphql");
 const port = 8080;
+const schema = require("./schemas/index");
 
 app.use(
   cors({
