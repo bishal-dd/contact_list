@@ -169,7 +169,7 @@ const Home = () => {
                     <div className="flex">
                       <Link
                         className="mr-2 text-blue-500 p-2 hover-bg-blue-100"
-                        to={`edit/${contact.id}`}
+                        to={`/edit/${contact.id}`}
                         state={contact}
                       >
                         <FaEdit /> {/* Edit icon */}

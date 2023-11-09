@@ -18,7 +18,7 @@ function App() {
         <Routes>
           <Route element={<ProtectedRoute />}>
             <Route path="/contact" element={<Home />} />
-            <Route path="/contact/edit/:id" element={<EditContact />} />
+            <Route path="/edit/:id" element={<EditContact />} />
           </Route>
 
           <Route path="/sign_up" element={<SignUp />} />
